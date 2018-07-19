@@ -234,7 +234,7 @@ class ShotgunTranscodeExporter(ShotgunHieroObjectBase, FnTranscodeExporter.Trans
         # Call parent method with swapped items in order to get proper timings
         original = self._item
         self._item = item
-        
+
         result = FnTranscodeExporter.TranscodeExporter.writeAudio(self)
 
         self._item = original
@@ -300,7 +300,10 @@ class ShotgunTranscodeExporter(ShotgunHieroObjectBase, FnTranscodeExporter.Trans
 
             file_name = os.path.basename(self._resolved_export_path)
             file_name = os.path.splitext(file_name)[0]
-            file_name = file_name.capitalize()
+            # Do it again to srip the number padding if its there
+            file_name = os.path.splitext(file_name)[0]
+            # dont tell me how to name my files
+            # file_name = file_name.capitalize()
 
             # use the head/tail to populate frame first/last/range fields on
             # the Version

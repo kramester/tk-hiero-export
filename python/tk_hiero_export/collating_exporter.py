@@ -96,7 +96,7 @@ class CollatingExporter(object):
         Trim In trackitem and it's linked audio items (since each video track is processed separately)
         """
         trackitem.trimIn(value)
-        for item in trackitem.linkedItems(): 
+        for item in trackitem.linkedItems():
             if item.mediaType() is hiero.core.TrackItem.MediaType.kAudio:
                 item.trimIn(value)
 
@@ -105,7 +105,7 @@ class CollatingExporter(object):
         Trim Out trackitem and it's linked audio items (since each video track is processed separately)
         """
         trackitem.trimOut(value)
-        for item in trackitem.linkedItems(): 
+        for item in trackitem.linkedItems():
             if item.mediaType() is hiero.core.TrackItem.MediaType.kAudio:
                 item.trimOut(value)
 
@@ -202,7 +202,7 @@ class CollatingExporter(object):
         # Apply the format of the master shot to the whole sequence
         # NOTE: Shouldn't it be taken from self._sequence instead? Multiple clips can have different resolution/formats
         newSequence.setFormat(self._clip.format())
-        
+
         # Note: Without correct framerate, audio comes out silent when manually exporting the sequence.
         newSequence.setFramerate(self._clip.framerate())
 
@@ -241,7 +241,7 @@ class CollatingExporter(object):
 
             trackItemClone = _clone_item(trackitem)
             self._collatedItemsMap[trackitem.guid()] = trackItemClone
-            
+
             # Copy audio for track item
             linkedItems = trackitem.linkedItems()
             newAudio = {}
@@ -257,13 +257,13 @@ class CollatingExporter(object):
                         # Copy tags from track to clone
                         for tag in audioParentTrack.tags():
                             audioTrackClone.addTag(hiero.core.Tag(tag))
-                    
+
                     audioItemClone = _clone_item(item)
                     trackItemClone.link(audioItemClone)
 
                     self._collatedItemsMap[item.guid()] = audioItemClone
-                    
-                    if audioParentTrack.guid() not in newAudio: 
+
+                    if audioParentTrack.guid() not in newAudio:
                         newAudio[audioParentTrack.guid()] = []
                     newAudio[audioParentTrack.guid()].append(audioItemClone)
 
@@ -369,9 +369,9 @@ class CollatingExporter(object):
                 # This flag indicates that an explicit start frame has been specified
                 # To make sure that when the shot is expanded to include handles this is still the first
                 # frame, here we offset the start frame by the in-handle size
-                if properties["collateCustomStart"] and self._cutHandles is not None:
+                # if properties["collateCustomStart"] and self._cutHandles is not None:
                 #if  self._preset.properties()["collateCustomStart"]:
-                    self._startFrame += self._cutHandles
+                    # self._startFrame += self._cutHandles
 
                 # The offset required to shift the timeline position to the custom start frame.
                 offset = self._startFrame - self._item.timelineIn()
